@@ -1,0 +1,4 @@
+LIBRARY "CppCustomAction"
+
+EXPORTS
+    CustomAction1

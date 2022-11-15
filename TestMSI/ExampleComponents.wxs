@@ -1,0 +1,20 @@
+<Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
+  <Fragment>
+    <ComponentGroup Id="ExampleComponents" Directory="INSTALLFOLDER">
+      <Component>
+        <File Source="ExampleComponents.wxs" />
+      </Component>
+    </ComponentGroup>
+
+    <Binary Id="CppCustomAction" SourceFile="$(var.SolutionDir)\x64\Debug\CppCustomAction.dll"/>
+    <CustomAction Id="CppTest" BinaryRef="CppCustomAction" DllEntry="CustomAction1" Execute="immediate" Return="check"/>
+
+    <Binary Id="Net7CustomAction" SourceFile="$(var.SolutionDir)\CustomAction\bin\release\net7.0\win-x64\publish\CustomAction.dll"/>
+    <CustomAction Id="Net7Test" BinaryRef="Net7CustomAction" DllEntry="CustomAction2" Execute="immediate" Return="check"/>
+
+    <InstallExecuteSequence>
+      <Custom Action="CppTest" After="InstallInitialize"/>
+      <Custom Action="Net7Test" After="CppTest"/>
+    </InstallExecuteSequence>
+  </Fragment>
+</Wix>
